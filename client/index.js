@@ -9,7 +9,9 @@ console.log(newDate)
 
 // Personal API Key for OpenWeatherMap API
 const apiKey = '54e0df3532424511a971a5aecf3c26c3'
-const baseUrl = 'http://api.openweathermap.org/data/2.5/'
+const baseWeatherUrl = 'http://api.openweathermap.org/data/2.5/'
+
+const baseServerUrl = 'http://localhost:3000'
 
 /* Function called by event listener */
 const handleButtonClick = () => {
@@ -17,7 +19,9 @@ const handleButtonClick = () => {
 
   const zipCode = 125480
   const countryCode = 'ru'
-  getWeather(baseUrl, zipCode, countryCode, apiKey)
+  getWeather(baseWeatherUrl, zipCode, countryCode, apiKey).then(
+    postData().then(getData())
+  )
 }
 
 // Event listener to add function to existing HTML DOM element
@@ -28,10 +32,10 @@ document.addEventListener('click', handleButtonClick)
 
 const getWeather = async (baseUrl, zipCode, countryCode, apiKey) => {
   try {
-    const { data, ok } = await fetch(`${baseUrl}weather?zip=${zipCode},${countryCode}&appid=${apiKey}`)
+    const response = await fetch(`${baseUrl}weather?zip=${zipCode},${countryCode}&appid=${apiKey}`)
 
-    if (ok) {
-      console.log(ok, data)
+    if (response.ok) {
+      console.log(response)
     }
 
   } catch (error) {
@@ -40,6 +44,31 @@ const getWeather = async (baseUrl, zipCode, countryCode, apiKey) => {
 }
 
 /* Function to POST data */
+const postData = async () => {
+  try {
+    const data = await fetch(`${baseServerUrl}/add_weather`, {
+        method: 'POST', 
+        credentials: 'same-origin', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({a: 'AAA'}),
+    })
+
+  } catch (error) {
+    console.log('Error: ', error)
+  }
+}
 
 
 /* Function to GET Project Data */
+/* Function to POST data */
+const getData = async () => {
+  try {
+    const { data } = await (await fetch(`${baseServerUrl}/get_weather`)).json()
+
+    console.log(data)
+  } catch (error) {
+    console.log('Error: ', error)
+  }
+}

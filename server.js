@@ -23,3 +23,15 @@ app.use(express.static('client'));
 app.listen(port, () => {
   console.log(`Server is running locally on port ${port}`)
 })
+
+
+app.post('/add_weather', (req, res) => {
+  console.log('/add_weather')
+  projectData['a'] = 'aaaaa'
+  res.status(201);
+})
+
+app.get('/get_weather', (req, res) => {
+  console.log('/get_weather')
+  res.status(200).json({ data: projectData });
+})
