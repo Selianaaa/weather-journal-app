@@ -8,27 +8,26 @@
   </head>
   <body>
     <section id="app">
- 
-
       <div class="card_wrapper">
         <div class="card">
-          <div class="holder headline">
+          <div class="title">
             Weather Journal App
           </div>
 
-          <div class="holder zip">
-            <label for="zip">Enter Zipcode here</label>
-            <input type="text" id="zip" placeholder="enter zip code here">
+          <div class="zip_wrapper">
+            <label for="zip" class="zip_label">Enter ZIP code here: </label>
+            <input type="text" id="zip" placeholder="ZIP code">
           </div>
 
-          <div class="holder feel">
+          <div class="feelings_wrapper">
             <label for="feelings">How are you feeling today?</label>
             <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
-            <button id="generate" type = "submit"> Generate </button>
           </div>
 
-          <div class="holder entry">
-            <div class="title">Most Recent Entry</div>
+          <button id="generate" type="submit">Generate</button>
+
+          <div class="entry_wrapper">
+            <div class="entry_title">Most Recent Entry</div>
             <div id="entryHolder">
               <div id="date"></div> 
               <div id="temp"></div>

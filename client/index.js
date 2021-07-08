@@ -24,13 +24,15 @@ const handleButtonClick = () => {
 
   const zipElement = document.querySelector('#zip')
 
+  const feelingElement = document.querySelector('#feelings')
+
   getWeather(zipCode, countryCode, apiKey)
     .then((weatherData) => {
       data = {
         temperature: weatherData.main.temp,
         weatherIconCode: weatherData.weather[0].icon,
         date: getDate(),
-        feeling: 'feeling'
+        feeling: feelingElement.value
       }
       postData(data).then(getData())
     })
