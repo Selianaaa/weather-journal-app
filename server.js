@@ -1,22 +1,22 @@
 // Setup empty JS object to act as endpoint for all routes
-const projectData = {};
 
+let projectData = {}
 
 const express = require('express')
 
-const app = express();
+const app = express()
 const port = 3000
 
 const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Cors for cross origin allowance
 const cors = require('cors')
-app.use(cors());
+app.use(cors())
 
 // Initializing of the main project folder
-app.use(express.static('client'));
+app.use(express.static('client'))
 
 // Setup Server
 
@@ -26,12 +26,13 @@ app.listen(port, () => {
 
 
 app.post('/add_weather', (req, res) => {
-  console.log('/add_weather')
-  projectData['a'] = 'aaaaa'
-  res.status(201);
+  console.log('/add_weather', req.body)
+  projectData = req.body
+  res.status(201)
 })
 
 app.get('/get_weather', (req, res) => {
-  console.log('/get_weather')
-  res.status(200).json({ data: projectData });
+  console.log('/get_weather', projectData)
+  
+  res.status(200).json({ ...projectData })
 })

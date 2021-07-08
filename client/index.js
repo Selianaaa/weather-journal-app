@@ -1,74 +1,114 @@
 
-/* Global Variables */
-
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
-console.log(newDate)
-
-
-// Personal API Key for OpenWeatherMap API
+// http://openweathermap.org/img/wn/${}.png - icon
 const apiKey = '54e0df3532424511a971a5aecf3c26c3'
 const baseWeatherUrl = 'http://api.openweathermap.org/data/2.5/'
-
+const weatherIconUrl = `http://openweathermap.org/img/wn/`
 const baseServerUrl = 'http://localhost:3000'
 
-/* Function called by event listener */
-const handleButtonClick = () => {
-  const zipElement = document.querySelector('#zip')
 
-  const zipCode = 125480
-  const countryCode = 'ru'
-  getWeather(baseWeatherUrl, zipCode, countryCode, apiKey).then(
-    postData().then(getData())
-  )
+
+/**
+ * Get today as MM.DD.YYYY formate
+ */
+ const getDate = () => {
+  const date = new Date();
+  return `${date.getMonth()}.${date.getDate()}.${date.getFullYear()}`
 }
 
-// Event listener to add function to existing HTML DOM element
-document.addEventListener('click', handleButtonClick)
+/**
+ * Handle click on the button
+ */
+const handleButtonClick = () => {
+  const zipCode = 125480
+  const countryCode = 'ru'
 
+  const zipElement = document.querySelector('#zip')
 
-/* Function to GET Web API Data*/
+  getWeather(zipCode, countryCode, apiKey)
+    .then((weatherData) => {
+      data = {
+        temperature: weatherData.main.temp,
+        weatherIconCode: weatherData.weather[0].icon,
+        date: getDate(),
+        feeling: 'feeling'
+      }
+      postData(data).then(getData())
+    })
+}
 
-const getWeather = async (baseUrl, zipCode, countryCode, apiKey) => {
+/**
+ * Request data from weather api
+ * @param {number} zipCode - place's zip code
+ * @param {string} countryCode - country code
+ * @param {string} apiKey - api key to access api data
+ */
+const getWeather = async (zipCode, countryCode, apiKey) => {
   try {
-    const response = await fetch(`${baseUrl}weather?zip=${zipCode},${countryCode}&appid=${apiKey}`)
+    const response = await fetch(`${baseWeatherUrl}weather?zip=${zipCode},${countryCode}&appid=${apiKey}`)
 
     if (response.ok) {
-      console.log(response)
+      const data = await response.json()
+      return data
     }
 
   } catch (error) {
-    console.log('Error: ', error)
+    console.log('getWeather error: ', error)
   }
 }
 
-/* Function to POST data */
-const postData = async () => {
+/**
+ * POST Request data to the server
+ * @param {object} data - data to post on server
+ */
+const postData = async (data = {}) => {
   try {
-    const data = await fetch(`${baseServerUrl}/add_weather`, {
+    const response = await fetch(`${baseServerUrl}/add_weather`, {
         method: 'POST', 
         credentials: 'same-origin', 
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({a: 'AAA'}),
+        body: JSON.stringify(data),
     })
 
+    if (response.status === 201) return
+
   } catch (error) {
-    console.log('Error: ', error)
+    console.log('postData error: ', error)
   }
 }
 
-
-/* Function to GET Project Data */
-/* Function to POST data */
+/**
+ * Request data from server
+ */
 const getData = async () => {
   try {
-    const { data } = await (await fetch(`${baseServerUrl}/get_weather`)).json()
+    const response = await (await fetch(`${baseServerUrl}/get_weather`))
 
-    console.log(data)
+    if (response.status === 200) {
+      const data = await response.json()
+      console.log('getData', data)
+      displayData(data)
+    }
   } catch (error) {
-    console.log('Error: ', error)
+    console.log('getData error: ', error)
   }
 }
+
+/**
+ * Display data on client
+ * @param {object} data - data
+ */
+const displayData = (data = {}) => {
+  const dateElement = document.querySelector('#date')
+  const tempElement = document.querySelector('#temp')
+  const contentElement = document.querySelector('#content')
+
+  dateElement.innerHTML = data.date
+  tempElement.innerHTML = data.temperature
+  contentElement.innerHTML = data.feeling
+}
+
+
+
+document.addEventListener('click', handleButtonClick)
