@@ -16,7 +16,9 @@ Enter US ZIP code to get current temperature.
 To run this project download the project folder and open the index.html file with web client.
 
 ## Server Setup 
-Install express, cors and body-parser modules.
+
+Install dependencies
+`nmp install`
 
 To run server white following command in root derectory:
 `node server.js`
