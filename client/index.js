@@ -1,5 +1,4 @@
 
-// http://openweathermap.org/img/wn/${}.png - icon
 const apiKey = '54e0df3532424511a971a5aecf3c26c3'
 const baseWeatherUrl = 'http://api.openweathermap.org/data/2.5/'
 const weatherIconUrl = `http://openweathermap.org/img/wn/`
@@ -19,20 +18,28 @@ const baseServerUrl = 'http://localhost:3000'
  * Handle click on the button
  */
 const handleButtonClick = () => {
-  const zipCode = 125480
-  const countryCode = 'ru'
+  const countryCode = 'us'
 
   const zipElement = document.querySelector('#zip')
 
   const feelingElement = document.querySelector('#feelings')
+  
+  if (zipElement.value.length === 0) {
+   document.querySelector('#zip').style.backgroundColor = 'rgba(255, 0, 0, 0.45)'
+   document.querySelector('.zip_label').style.color = '#aa3131'
+   return
+  } 
 
-  getWeather(zipCode, countryCode, apiKey)
+  document.querySelector('#zip').style.backgroundColor = 'rgba( 255, 255, 255, 0.25 )'
+  document.querySelector('.zip_label').style.color = 'white'
+
+  getWeather(zipElement.value, countryCode, apiKey)
     .then((weatherData) => {
       data = {
         temperature: weatherData.main.temp,
-        weatherIconCode: weatherData.weather[0].icon,
         date: getDate(),
-        feeling: feelingElement.value
+        city: weatherData.name,
+        feeling: feelingElement.value || ''
       }
       postData(data).then(getData())
     })
@@ -45,12 +52,17 @@ const handleButtonClick = () => {
  * @param {string} apiKey - api key to access api data
  */
 const getWeather = async (zipCode, countryCode, apiKey) => {
-  try {
-    const response = await fetch(`${baseWeatherUrl}weather?zip=${zipCode},${countryCode}&appid=${apiKey}`)
-
-    if (response.ok) {
-      const data = await response.json()
+  const response = await fetch(`${baseWeatherUrl}weather?zip=${zipCode},${countryCode}&appid=${apiKey}`)
+  
+  try { 
+    const data = await response.json()
+    console.log(data)
+    if (data.cod === 200) {
       return data
+    } else {
+
+      alert(data.message)
+      document.querySelector('#zip').value = ''
     }
 
   } catch (error) {
@@ -89,7 +101,6 @@ const getData = async () => {
 
     if (response.status === 200) {
       const data = await response.json()
-      console.log('getData', data)
       displayData(data)
     }
   } catch (error) {
@@ -102,15 +113,16 @@ const getData = async () => {
  * @param {object} data - data
  */
 const displayData = (data = {}) => {
-  const dateElement = document.querySelector('#date')
-  const tempElement = document.querySelector('#temp')
-  const contentElement = document.querySelector('#content')
+  const dateElement = document.querySelector('#date span')
+  const cityElement = document.querySelector('#city span')
+  const tempElement = document.querySelector('#temp span')
+  const contentElement = document.querySelector('#content span')
 
   dateElement.innerHTML = data.date
-  tempElement.innerHTML = data.temperature
+  cityElement.innerHTML = data.city
+  tempElement.innerHTML = `${Math.trunc(data.temperature - 273.15)} °C`
   contentElement.innerHTML = data.feeling
 }
 
 
-
-document.addEventListener('click', handleButtonClick)
+document.querySelector('#generate').addEventListener('click', handleButtonClick)

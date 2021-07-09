@@ -16,7 +16,7 @@
 
           <div class="zip_wrapper">
             <label for="zip" class="zip_label">Enter ZIP code here: </label>
-            <input type="text" id="zip" placeholder="ZIP code">
+            <input type="number" id="zip" placeholder="ZIP code">
           </div>
 
           <div class="feelings_wrapper">
@@ -24,14 +24,15 @@
             <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
           </div>
 
-          <button id="generate" type="submit">Generate</button>
+          <button id="generate">Generate</button>
 
           <div class="entry_wrapper">
             <div class="entry_title">Most Recent Entry</div>
-            <div id="entryHolder">
-              <div id="date"></div> 
-              <div id="temp"></div>
-              <div id="content"></div>
+            <div id="entry">
+              <div id="date">Date: <span></span></div> 
+              <div id="city">City: <span></span></div>
+              <div id="temp">Temperature: <span></span></div>
+              <div id="content">Feelings: <span></span></div>
             </div>
           </div>
         </div>

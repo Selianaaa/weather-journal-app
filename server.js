@@ -1,6 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 
-let projectData = {}
+projectData = {}
 
 const express = require('express')
 
