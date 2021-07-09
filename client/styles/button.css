@@ -1,0 +1,50 @@
+button {
+  margin-top: 10px;
+  align-self: center;
+  max-width: 200px;
+  transition: all 100ms;
+  padding: 14px 20px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 22px;
+  background: rgba(255, 255, 255, 0.30);
+  box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-weight:bold;
+  background: -webkit-linear-gradient(40deg,#ee0f68,#05d3f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+
+button:hover {
+  background: linear-gradient(10deg,rgba(231,66,124,0.4),rgba(107,206,226,0.4));
+  box-shadow: 0 2px 12px 0 rgba(231,66,124,0.4);
+  backdrop-filter: blur(6px);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:rgba(231,66,124,0.4);
+}
+
+button:active {
+  transform:translateY(1.5px);
+}
+
+
+@media (max-width: 660px) {
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    font-size: 18px;
+  } 
+}
+
+@media (min-width: 1920px) {
+  button {
+    margin-top: 1vw;
+    max-width: 20vw;
+    padding: 1.4vw 2vw 1.4vw 2vw;
+    font-size: 2.2vw;
+  } 
+}
