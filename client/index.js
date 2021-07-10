@@ -11,7 +11,7 @@ const baseServerUrl = 'http://localhost:3000'
  */
  const getDate = () => {
   const date = new Date();
-  return `${date.getMonth()}.${date.getDate()}.${date.getFullYear()}`
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
 
 /**
