@@ -13,7 +13,7 @@ Enter US ZIP code to get current temperature.
 
 ## Server Setup 
 Install dependencies
-`nmp install`
+`npm install`
 
-To run server white following command in root derectory:
+To run server white following command in the root directory:
 `node server.js`
