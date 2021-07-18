@@ -44,4 +44,4 @@ $ yarn build
 
 ## Demo
 
-Check the project [here](seliana-weather-journal.netlify.app).
+Check the project [here](https://seliana-weather-journal.netlify.app/).
