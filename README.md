@@ -11,14 +11,15 @@ Enter US ZIP code to get current temperature.
 Glass Morphism design is used.
 
 ## Server Setup 
+
 Install dependencies
 
 ```
-$ npm install
+$ yarn install
 ```
 
-To run server write following command in the root directory:
+To run write following command in the root directory:
 
 ```
-$ node server.js
+$ yarn start
 ```
