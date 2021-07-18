@@ -4,8 +4,10 @@
   "description": "Asynchronous web app that uses Web API and user data to dynamically update the UI.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest",
+    "server": "node src/server/server.js",
+    "build": "webpack --config config/webpack.prod.js",
+    "dev": "webpack serve --config config/webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,22 @@
   },
   "homepage": "https://github.com/Selianaaa/weather-journal-app#readme",
   "dependencies": {
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "css-loader": "^6.1.0",
+    "dotenv": "^10.0.0",
+    "dotenv-webpack": "^7.0.3",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.1.0",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "prettier": "^2.3.2",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2"
+  },
+  "devDependencies": {
+    "style-loader": "^3.1.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
