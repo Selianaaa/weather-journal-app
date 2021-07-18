@@ -1,25 +1,47 @@
 # Weather Journal App
 
 ## Table of contents
-* [Description](#description)
-* [Setup](#server-setup)
+
+- [Description](#description)
+
+* [Project Setup](#project-setup)
+* [Demo](#demo)
 
 ## Description
+
 Project is made to utilize JS and Node.js skills.
 Enter US ZIP code to get current temperature.
 
 Glass Morphism design is used.
 
-## Server Setup 
+## Project Setup
 
-Install dependencies
+Get your privite API key from https://openweathermap.org/ and set it up into the .env file.
+
+### Install dependencies
 
 ```
 $ yarn install
 ```
 
-To run write following command in the root directory:
+### To run server for development:
 
 ```
-$ yarn start
+$ yarn server
 ```
+
+### Compiles and hot-reloads for development
+
+```
+$ yarn dev
+```
+
+### Compiles and minifies for production
+
+```
+$ yarn build
+```
+
+## Demo
+
+Check the project [here](seliana-weather-journal.netlify.app).
