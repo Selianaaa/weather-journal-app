@@ -17,12 +17,12 @@ app.use(cors());
 // Initializing of the main project folder
 app.use(express.static('dist'));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.resolve('dist/index.html'));
-});
-
 app.listen(3003, () => {
   console.log('Server is running locally on port 3003');
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(path.resolve('dist/index.html'));
 });
 
 app.post('/add_weather', (req, res) => {
