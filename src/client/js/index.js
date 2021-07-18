@@ -1,7 +1,6 @@
 import '../styles/index.css';
 import { BASE_URLS } from '../constants';
 
-console.log(process.env.NODE_ENV);
 /**
  * Get today as MM.DD.YYYY formate
  */
