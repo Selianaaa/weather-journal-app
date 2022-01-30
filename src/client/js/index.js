@@ -1,6 +1,7 @@
 import '../styles/index.css';
 import { BASE_URLS } from '../constants';
 
+const OPENWEATER_API_KEY= '54e0df3532424511a971a5aecf3c26c3'
 /**
  * Get today as MM.DD.YYYY formate
  */
@@ -33,7 +34,7 @@ const handleButtonClick = () => {
   getWeather(
     zipElement.value,
     countryCode,
-    process.env.OPENWEATER_API_KEY
+ OPENWEATER_API_KEY
   ).then((weatherData) => {
     const data = {
       temperature: weatherData.main.temp,
